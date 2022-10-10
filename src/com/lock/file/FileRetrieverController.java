@@ -19,9 +19,9 @@ public class FileRetrieverController {
 		int userSelection;
 		boolean validInput = false;
 		do {
-			System.out.print("Please enter 1 to display current directory details \n");
-			System.out.print("Please enter 2 to perform add/delete/search operation on directory \n");
-			System.out.print("Please enter 3 to exit from the application \n");
+			System.out.print(" Please enter 1 to display current directory details \n ");
+			System.out.print("Please enter 2 to perform add/delete/search operation on directory \n ");
+			System.out.print("Please enter 3 to exit from the application \n ");
 			userSelection = this.console.nextInt();
 			switch (userSelection) {
 			case 1:
@@ -30,7 +30,10 @@ public class FileRetrieverController {
 				validInput = true;
 				break;
 			case 2:
-				System.out.println("Choose to perform add/delete/search operation on directory");
+				System.out.println("\n Choose options to perform add/delete/search operation on directory");
+				System.out.println("------------------------------------------------------------------");
+				displayFileOpertaionUserOptions();
+
 				break;
 			case 3:
 				System.out.println("GoodBye!! Thank you for using this application");
@@ -42,33 +45,51 @@ public class FileRetrieverController {
 				break;
 			}
 		} while (validInput);
-		
+
 	}
 
 	private void displayFileOpertaionUserOptions() {
 
 		int userSelection;
+		boolean validInput = false;
+		do {
+			System.out.print("	Please enter 1 to add a file to the existing directory list \n");
+			System.out.print("	Please enter 2 to delete a user specified file from the existing directory list.\n");
+			System.out.print("	Please enter 3 to Search a user specified file from the main directory.\n");
+			System.out.print("	Please enter 4 to go back to main menu.\n ");
+			userSelection = this.console.nextInt();
+			switch (userSelection) {
+			case 1:
+				System.out.println("Add a file to the existing directory list");
+				Scanner user = new Scanner( System.in ); 
+			    String  inputFileName;
 
-		System.out.print("Please enter 1 to add a file to the existing directory list \n");
-		System.out.print("Please enter 2 to delete a user specified file from the existing directory list.\n");
-		System.out.print("Please enter 3 to Search a user specified file from the main directory.\n ");
-		userSelection = this.console.nextInt();
-		switch (userSelection) {
-		case 1:
-			System.out.println("Add a file to the existing directory list");
-			break;
+			    // prepare the input file
+			    System.out.print("Enter File Name: ");
+			    inputFileName = user.nextLine().trim();
+				retreiver.addFile(inputFileName);
+				validInput = true;
+				break;
 
-		case 2:
-			System.out.println("Delete a user specified file from the existing directory list.");
-			break;
+			case 2:
+				System.out.println("Delete a user specified file from the existing directory list.");
+				validInput = true;
+				break;
 
-		case 3:
-			System.out.println("Search a user specified file from the main directory");
-			break;
-
-		default:
-			System.out.println("Invalid input");
-		}
+			case 3:
+				System.out.println("Search a user specified file from the main directory");
+				validInput = true;
+				break;
+			case 4:
+				System.out.println("Main Menu");
+				displayUserOptions();
+				validInput = false;
+				break;
+			default:
+				System.out.println("Invalid input");
+				validInput = true;
+			}
+		} while (validInput);
 	}
 
 }
