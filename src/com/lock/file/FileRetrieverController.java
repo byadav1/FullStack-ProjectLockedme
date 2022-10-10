@@ -2,18 +2,27 @@ package com.lock.file;
 
 import java.util.Scanner;
 
+/**
+ * * This class helps interacting with users inputs and handles the models the
+ * response the business logic to perform File operation
+ * 
+ * @author yadav
+ * @since 2022-10-01
+ */
 public class FileRetrieverController {
 
 	private Scanner console;
-	private String defaultDirectory = "C:\\Users";
+
 	private FileRetrieverModel retreiver;
 
 	public FileRetrieverController() {
 		this.retreiver = new FileRetrieverModel();
 		this.console = new Scanner(System.in);
-
 	}
 
+	/*
+	 * This method acts an main menu display for a user
+	 */
 	public void displayUserOptions() {
 
 		int userSelection;
@@ -48,10 +57,14 @@ public class FileRetrieverController {
 
 	}
 
+	/*
+	 * This method helps displaying an option to perform to file operation
+	 */
+
 	private void displayFileOpertaionUserOptions() {
-		Scanner fileOperationScanner = new Scanner( System.in ); 
+		Scanner fileOperationScanner = new Scanner(System.in);
 		int userSelection;
-	    String  inputFileName;
+		String inputFileName;
 		boolean validInput = false;
 		do {
 			System.out.print("	Please enter 1 to add a file to the existing directory list \n");
@@ -62,26 +75,29 @@ public class FileRetrieverController {
 			switch (userSelection) {
 			case 1:
 				System.out.println("Add a file to the existing directory list");
-			    System.out.print("Enter File Name: ");
-			    inputFileName = fileOperationScanner.nextLine().trim();
+				System.out.print("Enter File Name: ");
+				inputFileName = fileOperationScanner.nextLine().trim();
 				retreiver.addFile(inputFileName);
 				validInput = true;
+				fileOperationScanner.close();
 				break;
 
 			case 2:
 				System.out.println("Delete a user specified file from the existing directory list.");
 				System.out.print("Enter File Name to delete: ");
-			    inputFileName = fileOperationScanner.nextLine().trim();
-			    retreiver.deleteFile(inputFileName);
+				inputFileName = fileOperationScanner.nextLine().trim();
+				retreiver.deleteFile(inputFileName);
 				validInput = true;
+				fileOperationScanner.close();
 				break;
 
 			case 3:
 				System.out.println("Search a user specified file from the main directory");
-			    System.out.print("Enter File Name to search: ");
-			    inputFileName = fileOperationScanner.nextLine().trim();
-			    retreiver.searchFile(inputFileName);
+				System.out.print("Enter File Name to search: ");
+				inputFileName = fileOperationScanner.nextLine().trim();
+				retreiver.searchFile(inputFileName);
 				validInput = true;
+				fileOperationScanner.close();
 				break;
 			case 4:
 				System.out.println("Main Menu");

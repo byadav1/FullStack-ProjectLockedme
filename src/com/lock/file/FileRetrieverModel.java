@@ -2,7 +2,6 @@ package com.lock.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -10,20 +9,30 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class helps writing the business logic to perform File operation
+ * @author yadav
+ *
+ */
 public class FileRetrieverModel {
 
 	private File curentDir;
 	private boolean isFileFound;
 
+	/*
+	 * Default Constructor to initialize the class variable
+	 */
 	public FileRetrieverModel() {
 		String dir = System.getProperty("user.dir");
 		this.isFileFound = false;
 		this.curentDir = new File(dir);
 	}
 
+	/*
+	 * This method help Display the current directory details
+	 */
 	public void currentDirectoryDetails() {
 
-		// File[] filesList = curDir.listFiles();
 		List<String> listfileName = Arrays.asList(curentDir.list());
 		Collections.sort(listfileName, String.CASE_INSENSITIVE_ORDER);
 
@@ -33,6 +42,13 @@ public class FileRetrieverModel {
 		System.out.println("----------------------------------------------------");
 	}
 
+	/*
+	 * This method help adding the file to the current directory
+	 * 
+	 * @param - name of the file
+	 * 
+	 * @see IOException
+	 */
 	public void addFile(String name) {
 		try {
 			File myObj = new File(name);
@@ -48,6 +64,13 @@ public class FileRetrieverModel {
 		System.out.println("----------------------------------------------------");
 	}
 
+	/*
+	 * This method help deleting the file to the current directory
+	 * 
+	 * @param - name of the file
+	 * 
+	 * @see NoSuchFileException ,IOException
+	 */
 	public void deleteFile(String name) {
 
 		try {
@@ -63,6 +86,13 @@ public class FileRetrieverModel {
 
 	}
 
+	/*
+	 * This method help searching the file to the current directory
+	 * 
+	 * @param - name of the file
+	 * 
+	 * @see NoSuchFileException ,IOException
+	 */
 	public void searchFile(String searchfilename) {
 
 		performSearch(this.curentDir, searchfilename);
@@ -75,6 +105,15 @@ public class FileRetrieverModel {
 		this.isFileFound = false;
 	}
 
+	/*
+	 * Helper method help searching the file to the current directory
+	 * 
+	 * @param - Directory to search
+	 * 
+	 * @param - name of the file
+	 * 
+	 * @see NoSuchFileException ,IOException
+	 */
 	private void performSearch(File searchdirectory, String searchfilename) {
 		if (isFileFound) {
 			return;
