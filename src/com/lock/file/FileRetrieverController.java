@@ -62,8 +62,6 @@ public class FileRetrieverController {
 			switch (userSelection) {
 			case 1:
 				System.out.println("Add a file to the existing directory list");
-				
-			    // prepare the input file
 			    System.out.print("Enter File Name: ");
 			    inputFileName = fileOperationScanner.nextLine().trim();
 				retreiver.addFile(inputFileName);
@@ -72,8 +70,7 @@ public class FileRetrieverController {
 
 			case 2:
 				System.out.println("Delete a user specified file from the existing directory list.");
-				 // prepare the input file
-			    System.out.print("Enter File Name: ");
+				System.out.print("Enter File Name to delete: ");
 			    inputFileName = fileOperationScanner.nextLine().trim();
 			    retreiver.deleteFile(inputFileName);
 				validInput = true;
@@ -81,6 +78,9 @@ public class FileRetrieverController {
 
 			case 3:
 				System.out.println("Search a user specified file from the main directory");
+			    System.out.print("Enter File Name to search: ");
+			    inputFileName = fileOperationScanner.nextLine().trim();
+			    retreiver.searchFile(inputFileName);
 				validInput = true;
 				break;
 			case 4:
