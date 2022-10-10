@@ -2,6 +2,10 @@ package com.lock.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -36,8 +40,24 @@ public class FileRetrieverModel {
 		System.out.println("----------------------------------------------------");
 	}
 	
-	public void deleteFile() {
-	
+	public void deleteFile(String name) {
+		String dir = System.getProperty("user.dir");
+		File curDir = new File(dir);
+		 System.out.println(Paths.get(curDir+"\\" + name ));
+		try {
+			
+			Files.delete(Paths.get(curDir+"\\" + name));
+			 System.out.println("File Deleted successfully.");
+           
+        }
+        catch (NoSuchFileException e) {
+            System.out.println(
+                "No such file/directory exists");
+        }        
+        catch (IOException e) {
+            System.out.println("Invalid permissions.");
+        }
+       
 	}
 	public void searchFile() {
 	

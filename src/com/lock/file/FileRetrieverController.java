@@ -49,8 +49,9 @@ public class FileRetrieverController {
 	}
 
 	private void displayFileOpertaionUserOptions() {
-
+		Scanner fileOperationScanner = new Scanner( System.in ); 
 		int userSelection;
+	    String  inputFileName;
 		boolean validInput = false;
 		do {
 			System.out.print("	Please enter 1 to add a file to the existing directory list \n");
@@ -61,18 +62,20 @@ public class FileRetrieverController {
 			switch (userSelection) {
 			case 1:
 				System.out.println("Add a file to the existing directory list");
-				Scanner user = new Scanner( System.in ); 
-			    String  inputFileName;
-
+				
 			    // prepare the input file
 			    System.out.print("Enter File Name: ");
-			    inputFileName = user.nextLine().trim();
+			    inputFileName = fileOperationScanner.nextLine().trim();
 				retreiver.addFile(inputFileName);
 				validInput = true;
 				break;
 
 			case 2:
 				System.out.println("Delete a user specified file from the existing directory list.");
+				 // prepare the input file
+			    System.out.print("Enter File Name: ");
+			    inputFileName = fileOperationScanner.nextLine().trim();
+			    retreiver.deleteFile(inputFileName);
 				validInput = true;
 				break;
 
