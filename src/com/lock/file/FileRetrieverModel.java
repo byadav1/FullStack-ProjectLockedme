@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * This class helps writing the business logic to perform File operation
+ * 
  * @author yadav
  * @since 2022-10-01
  */
@@ -35,11 +36,18 @@ public class FileRetrieverModel {
 
 		List<String> listfileName = Arrays.asList(curentDir.list());
 		Collections.sort(listfileName, String.CASE_INSENSITIVE_ORDER);
-
+		if (!curentDir.exists()) {
+			System.out.println(curentDir + " .Directory does not exist");
+			return;
+		} else if (listfileName.size() <= 0) {
+			System.out.println(curentDir + " .Directory is empty");
+			return;
+		}
 		for (String f : listfileName) {
 			System.out.println(f);
 		}
 		System.out.println("----------------------------------------------------");
+
 	}
 
 	/*
@@ -58,8 +66,7 @@ public class FileRetrieverModel {
 				System.out.println("File already exists.");
 			}
 		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
+			throw new IllegalArgumentException("An error occurred while writing the file");
 		}
 		System.out.println("----------------------------------------------------");
 	}
@@ -79,9 +86,9 @@ public class FileRetrieverModel {
 			System.out.println("File Deleted successfully.");
 
 		} catch (NoSuchFileException e) {
-			System.out.println("No such file/directory exists");
+			throw new IllegalArgumentException("No such file/directory exists");
 		} catch (IOException e) {
-			System.out.println("Invalid permissions.");
+			throw new IllegalArgumentException("Invalid permissions.");
 		}
 
 	}
@@ -115,21 +122,25 @@ public class FileRetrieverModel {
 	 * @see NoSuchFileException ,IOException
 	 */
 	private void performSearch(File searchdirectory, String searchfilename) {
-		if (isFileFound) {
-			return;
-		}
-		File[] files = searchdirectory.listFiles();
-		for (File file : files) {
-			if (file.isFile()) {
-				if (file.getName().equals(searchfilename)) {
-					isFileFound = true;
-					break;
+		try {
+			if (isFileFound) {
+				return;
+			}
+			File[] files = searchdirectory.listFiles();
+			for (File file : files) {
+				if (file.isFile()) {
+					if (file.getName().equals(searchfilename)) {
+						isFileFound = true;
+						break;
+					}
+					continue;
 				}
-				continue;
+				if (file.isDirectory()) {
+					performSearch(file, searchfilename);
+				}
 			}
-			if (file.isDirectory()) {
-				performSearch(file, searchfilename);
-			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
 
