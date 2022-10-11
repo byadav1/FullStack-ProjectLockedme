@@ -127,8 +127,7 @@ public class FileRetrieverController {
 
 						break;
 					case 4:
-						System.out.println("Main Menu");
-						displayUserOptions();
+						
 						validInput = false;
 						break;
 					default:
